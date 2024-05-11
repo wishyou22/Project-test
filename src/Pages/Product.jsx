@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Product.css"
 
 const ProductPage = ({ products }) => {
+  
   return (
     <>
       <h1>Product Page</h1>
@@ -14,9 +15,12 @@ const ProductPage = ({ products }) => {
                 src={product.src}
                 alt={`Product ${product.id}`}
               />
-              <div className="content">
+              <div className="content"
+              
+              >
               <h2>hiiiiiiiiii</h2>
               <p>hellooooooooooooooooooooo</p>
+
             </div>
             </Link>
             

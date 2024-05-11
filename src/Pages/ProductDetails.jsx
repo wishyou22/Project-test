@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProductDetailsPage = ({ products }) => {
+  function viewImage(child, index) {
+    const a = child.src;
+    setData({ a, index });
+  }
+  const [data, setData] = useState({
+    img: "",
+    i: 0,
+  });
   const { id } = useParams();
   const product = products.find((p) => p.id === parseInt(id));
 
@@ -11,18 +19,36 @@ const ProductDetailsPage = ({ products }) => {
 
   return (
     <div>
+      {data.img && (
+        <div
+          style={{
+            width: "100%",
+            height: "100vh",
+            background: "black",
+            position: "fixed",
+            display: "flex",
+            justifyContent: "center",
+            alignitems: "center",
+            overflow: "hidden",
+          }}
+        >
+          <img src ={data.img} style={{
+            width:'auto',
+            maxWidth:"90%",
+            maxHeight:"90%"
+          }}/>
+        </div>
+      )}
       <h1>Product Details Page</h1>
       <img
         src={product.src}
         alt={`Product ${product.id}`}
-        style={{ 
-        width: "100%", 
-        height: "400px", 
-        objectFit: "cover",
-        position:"relative"
-      
-      
-      }}
+        style={{
+          width: "100%",
+          height: "400px",
+          objectFit: "cover",
+          position: "relative",
+        }}
       />
       <div
         style={{
@@ -30,16 +56,14 @@ const ProductDetailsPage = ({ products }) => {
           color: "white",
           padding: "10px",
           position: "absolute",
-          top:"40px",
+          top: "40px",
           left: "10px",
           background: "rgba(0, 0, 0, 0.5)",
           fontSize: "16px",
           borderRadius: " 5px",
         }}
-      
-      
       >
-      <p>{product.content}</p>
+        <p>{product.content}</p>
       </div>
       <div
         style={{
@@ -51,11 +75,12 @@ const ProductDetailsPage = ({ products }) => {
           marginTop: "20px",
         }}
       >
-        {product.children.map((child) => (
+        {product.children.map((child, index) => (
           <img
             key={child.id}
             src={child.src}
             alt={`Product ${child.id}`}
+            onClick={() => viewImage(child, index)}
             style={{
               margin: "5px",
               width: "220px",
